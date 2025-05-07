@@ -1,0 +1,17 @@
+gedit inputme.txt
+
+hdfs dfs -ls /user/cloudera
+
+hdfs dfs -put inputme.txt /user/cloudera
+
+hdfs dfs -ls /user/cloudera
+
+hdfs dfs -cat /user/cloudera/inputme.txt
+
+New terminal -> Spark-shell
+
+val text = sc.textFile("/user/cloudera/inputme.txt")
+
+val counts = text.flatMap(line=>line.split(" ")).map(word=>(word, 1)).reduceByKey(_+_)
+
+counts.collect().foreach(println)
